@@ -19,6 +19,7 @@ def main():
     hs = HouseStats(data)
     hs.get_new()
     hs.get_resales()
+    hs.get_prices()
 
 
 if __name__ == "__main__":
