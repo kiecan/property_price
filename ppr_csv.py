@@ -1,17 +1,15 @@
 import requests
 from pathlib import Path
 
+
 class PprCsv:
 
-    def __init__(self, c: str, y: str, m: str):
-        self.county = c
-        self.year = y
-        self.month = m
+    def __init__(self):
         self.download_folder = "data"
-        self.url = f"https://www.propertypriceregister.ie/website/npsra/ppr/npsra-ppr.nsf/Downloads/PPR-{self.year}-{self.month}-{self.county}.csv/$FILE/PPR-{self.year}-{self.month}-{self.county}.csv"
-
         Path(self.download_folder).mkdir(parents=True, exist_ok=True)
+        requests.packages.urllib3.disable_warnings()
 
-        r = requests.get(self.url, allow_redirects=True, verify=False)
-
-        open(f"{self.download_folder}/{self.year}_{self.month}_{self.county}.csv", 'wb').write(r.content)
+    def get_data(self, county: str, year: str, month: str):
+        url = f"https://www.propertypriceregister.ie/website/npsra/ppr/npsra-ppr.nsf/Downloads/PPR-{year}-{month}-{county}.csv/$FILE/PPR-{year}-{month}-{county}.csv"
+        r = requests.get(url, allow_redirects=True, verify=False)
+        open(f"{self.download_folder}/{year}_{month}_{county}.csv", 'wb').write(r.content)
