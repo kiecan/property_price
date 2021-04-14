@@ -14,4 +14,4 @@ class PprCsv:
 
         r = requests.get(self.url, allow_redirects=True, verify=False)
 
-        open(f"{self.download_folder}/{self.county}_{self.month}_{self.month}.csv", 'wb').write(r.content)
+        open(f"{self.download_folder}/{self.year}_{self.month}_{self.county}.csv", 'wb').write(r.content)
