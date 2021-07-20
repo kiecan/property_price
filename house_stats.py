@@ -6,6 +6,7 @@ RESALE = "Second-Hand Dwelling house /Apartment"
 class HouseStats:
     
     def __init__(self, data):
+        self.number_of_sales = len(data.index)
         self.property_types = data["Description of Property"].tolist()
         self.new_dwellings = self.property_types.count(NEW)
         self.secondhand_dwellings = self.property_types.count(RESALE)
@@ -22,3 +23,6 @@ class HouseStats:
 
     def get_prices(self):
         print(self.prices)
+
+    def get_number_of_sales(self):
+        print(f"Number of Sales: {self.number_of_sales}")
