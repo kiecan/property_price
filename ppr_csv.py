@@ -7,7 +7,7 @@ CSV_ENCODING = "windows-1252"
 DOWNLOAD_URL = "https://www.propertypriceregister.ie/website/npsra/ppr/npsra-ppr.nsf/Downloads/PPR"
 
 
-class PprCsv:
+class PropertyPriceRegisterCsv:
 
     def __init__(self, c: str, y: str, m: str):
         self.download_folder = "data"
@@ -34,8 +34,8 @@ class PprCsv:
         output_file = open(self.normalized_file, 'w')
         data = csv.reader(input_file)
         writer = csv.writer(output_file)
-        specials = '€'
+        currency_symbol = '€'
 
         for line in data:
-            line = [value.replace(specials, '') for value in line]
+            line = [value.replace(currency_symbol, '') for value in line]
             writer.writerow(line)

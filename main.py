@@ -1,31 +1,29 @@
-from ppr_csv import PprCsv
-from parse_csv import ParseCsv
-import csv
+from ppr_csv import PropertyPriceRegisterCsv
+import pandas as pd
 from house_stats import HouseStats
-import string
+
 
 COUNTY = "Galway"
-YEAR = "2010"
+YEAR = "2020"
 MONTH = "04"
-CSV_ENCODING = "windows-1252"
-
 
 def main():
 
-    ppr_csv = PprCsv(COUNTY, YEAR, MONTH)
-    #ppr_csv.get_data(COUNTY, YEAR, MONTH)
+    ppr_csv = PropertyPriceRegisterCsv(COUNTY, YEAR, MONTH)
 
-    #pc = ParseCsv(ppr_csv.output_file)
+    print(ppr_csv.normalized_file)
 
-    #data = pc.parse_file()
+    house_data_set = pd.read_csv(ppr_csv.normalized_file)
 
-    #print(type(data))
+    stats = HouseStats(house_data_set)
 
-    #hs = HouseStats(data)
-    #hs.get_new()
-    #hs.get_resales()
-    #hs.get_prices()
+    stats.get_new()
 
+    stats.get_resales()
+
+    stats.get_prices()
+
+    #print(data)
 
 if __name__ == "__main__":
     exit(main())

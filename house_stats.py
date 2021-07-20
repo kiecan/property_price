@@ -10,7 +10,7 @@ class HouseStats:
         self.new_dwellings = self.property_types.count(NEW)
         self.secondhand_dwellings = self.property_types.count(RESALE)
 
-        self.prices = data["Price (€)"].tolist()
+        self.prices = data["Price ()"].tolist()
 
     def get_new(self):
         new_houses_pct = self.new_dwellings / len(self.property_types) * 100
