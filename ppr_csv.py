@@ -23,10 +23,16 @@ class PropertyPriceRegisterCsv:
 
     def get_data(self):
         url = f"https://www.propertypriceregister.ie/website/npsra/ppr/npsra-ppr.nsf/Downloads/PPR-{self.year}-{self.month}-{self.county}.csv/$FILE/PPR-{self.year}-{self.month}-{self.county}.csv"
-        print(url)
-        r = requests.get(url, allow_redirects=True, verify=False)
+
         self.download_file = f"{self.download_folder}/{self.year}_{self.month}_{self.county}.csv"
-        open(self.download_file, 'wb').write(r.content)
+        file = Path(self.download_file)
+        if file.is_file():
+          print(f"{file} exists")
+        else:
+          print(f"Downloading {file}...")
+          r = requests.get(url, allow_redirects=True, verify=False)
+          open(file, 'wb').write(r.content)
+
 
     def normalize_csv(self):
         self.normalized_file =  f"{self.download_folder}/{self.year}_{self.month}_{self.county}_parsed.csv"
