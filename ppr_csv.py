@@ -1,5 +1,6 @@
 import requests
 from pathlib import Path
+import logging
 import csv
 
 
@@ -21,13 +22,17 @@ class PropertyPriceRegisterCsv:
         self.get_data()
         self.normalize_csv()
 
+        logging.basicConfig(filename='app.log', filemode='w', format='%(name)s - %(levelname)s - %(message)s')
+
     def get_data(self):
         url = f"https://www.propertypriceregister.ie/website/npsra/ppr/npsra-ppr.nsf/Downloads/PPR-{self.year}-{self.month}-{self.county}.csv/$FILE/PPR-{self.year}-{self.month}-{self.county}.csv"
 
         self.download_file = f"{self.download_folder}/{self.year}_{self.month}_{self.county}.csv"
         file = Path(self.download_file)
         if file.is_file():
-          print(f"{file} exists")
+          #pass
+           logging.info(f"{file} exists")
+          #self.logger.info(f"{file} exists")
         else:
           print(f"Downloading {file}...")
           r = requests.get(url, allow_redirects=True, verify=False)
