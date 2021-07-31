@@ -1,7 +1,6 @@
-# Sale Types
 from pandas.core.frame import DataFrame
 
-
+# Sale Types
 NEW = "New Dwelling house /Apartment"
 RESALE = "Second-Hand Dwelling house /Apartment"
 
@@ -15,7 +14,7 @@ class HouseStats:
         self.new_dwellings = self.property_types.count(NEW)
         self.secondhand_dwellings = self.property_types.count(RESALE)
         self.prices = data["Price"].tolist()
-        self.month = data[
+        #self.month = data[
 
     def get_new(self) -> float:
         new_houses_pct = self.new_dwellings / len(self.property_types) * 100
