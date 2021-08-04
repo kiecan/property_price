@@ -1,10 +1,27 @@
-class County:
+from dataclasses import dataclass
+from os import name
 
-  def __init__(self, n: str, new, resale, num_sales, avg, m, y) -> None:
-      self.name = n
-      self.new_house_pct = new
-      self.resale_pct = resale
-      self.number_of_sales = num_sales
-      self.average_price = avg
-      self.month = m
-      self.year = y
+@dataclass
+class County:
+  """Class to track county information"""
+
+  name: str
+  new_house_pct: float
+  resale_pct: float
+  number_of_sales: int
+  average_price: float
+  month: str
+  year:str
+
+  def get_data(self):
+    """Returns a dict of the counties data"""
+    county_data = {
+      "name": self.name,
+      "new_house_pct": self.new_house_pct,
+      "resale_pct": self.resale_pct,
+      "number_of_sales": self.number_of_sales,
+      "average_price": self.average_price,
+      "month": self.month,
+      "year": self.year
+    }
+    return county_data

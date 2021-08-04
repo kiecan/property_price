@@ -1,20 +1,22 @@
 from pandas.core.frame import DataFrame
+from datetime import datetime
 
 # Sale Types
 NEW = "New Dwelling house /Apartment"
 RESALE = "Second-Hand Dwelling house /Apartment"
 
 
-class HouseStats:
+class HouseStats:  
     
     def __init__(self, data: DataFrame, c: str):
-        self.county = data["County"].tolist().q
+        self.county = data["County"].tolist()
         self.number_of_sales = len(data.index)
         self.property_types = data["Description of Property"].tolist()
         self.new_dwellings = self.property_types.count(NEW)
         self.secondhand_dwellings = self.property_types.count(RESALE)
-        self.prices = data["Price"].tolist()
-        #self.month = data[
+        self.prices = data["Price ()"].tolist()
+        self.month = self.get_month(data)
+        self.year = self.get_year(data)
 
     def get_new(self) -> float:
         new_houses_pct = self.new_dwellings / len(self.property_types) * 100
@@ -44,3 +46,22 @@ class HouseStats:
         average_price =  round(average_price, 2)
 
         return average_price
+    
+    def get_month(self, data:DataFrame) -> int:
+      """Extract month from dataset and returns an int"""
+      month = 0
+      dates = data["Date of Sale (dd/mm/yyyy)"].tolist()
+      date = [datetime.strptime(_, "%d/%m/%Y") for _ in dates]
+      month = date[0].month
+
+      return month
+
+    def get_year(self, data:DataFrame) -> int:
+      """Extract year from dataset and returns an int"""
+      year = 0
+
+      dates = data["Date of Sale (dd/mm/yyyy)"].tolist()
+      date = [datetime.strptime(_, "%d/%m/%Y") for _ in dates]
+      year = date[0].year
+
+      return year

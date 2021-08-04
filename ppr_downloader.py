@@ -31,8 +31,8 @@ class PropertyPriceRegisterDownloader:
           print(f"Downloading {file}...")
           r = requests.get(url, allow_redirects=True, verify=False)
           open(file, 'wb').write(r.content)
-        else:
-          print(f"{file} exists")
+        #else:
+        #  print(f"{file} exists")
 
         return file
 
@@ -45,13 +45,13 @@ class PropertyPriceRegisterDownloader:
           output_file = open(normalized_file, 'w')
           data = csv.reader(input_file)
           writer = csv.writer(output_file)
-          currency_symbol = ' (€)'
+          currency_symbol = '€'
 
           for line in data:
               line = [value.replace(currency_symbol, '') for value in line]
               writer.writerow(line)
-        else:
-          print(f"{normalized_file} already processed")
+        #else:
+        #  print(f"{normalized_file} already processed")
         return normalized_file
 
 
